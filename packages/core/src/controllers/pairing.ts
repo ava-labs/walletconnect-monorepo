@@ -90,7 +90,7 @@ export class Pairing implements IPairing {
 
   public register: IPairing["register"] = ({ methods }) => {
     this.isInitialized();
-    this.registeredMethods = [...new Set([...this.registeredMethods, ...methods])];
+    this.registeredMethods = [...unique([...this.registeredMethods, ...methods])];
   };
 
   public create: IPairing["create"] = async (params) => {

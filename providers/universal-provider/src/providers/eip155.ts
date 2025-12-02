@@ -139,7 +139,7 @@ class Eip155Provider implements IProvider {
       return [];
     }
     return [
-      ...new Set(
+      ...unique(
         accounts
           // get the accounts from the active chain
           .filter((account) => account.split(":")[1] === this.chainId.toString())

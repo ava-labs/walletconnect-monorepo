@@ -313,7 +313,7 @@ export class UniversalProvider implements IUniversalProvider {
     }
 
     const providersToCreate = [
-      ...new Set(
+      ...unique(
         Object.keys(this.session.namespaces).map((namespace) => parseNamespaceKey(namespace)),
       ),
     ];

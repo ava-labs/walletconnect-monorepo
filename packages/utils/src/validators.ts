@@ -469,7 +469,7 @@ function parseNamespaces(namespaces: ProposalTypes.RequiredNamespaces) {
 
 function filterDuplicateNamespaces(namespaces: string[]) {
   return [
-    ...new Set(
+    ...unique(
       namespaces.map((namespace) =>
         namespace.includes(":") ? namespace.split(":")[0] : namespace,
       ),

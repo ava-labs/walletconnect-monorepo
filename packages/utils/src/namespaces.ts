@@ -1,5 +1,5 @@
 import { ProposalTypes, SessionTypes } from "@walletconnect/types";
-import { mergeArrays } from "./misc.js";
+import { mergeArrays, unique } from "./misc.js";
 import { isConformingNamespaces, isValidNamespaces, isValidObject } from "./validators.js";
 
 export function getAccountsChains(accounts: SessionTypes.Namespace["accounts"]) {
@@ -18,7 +18,7 @@ export function getNamespacesChains(namespaces: SessionTypes.Namespaces) {
     chains.push(...getAccountsChains(namespace.accounts));
   });
 
-  return [...new Set(chains)];
+  return [...unique(chains)];
 }
 
 export function getNamespacesMethods(namespaces: SessionTypes.Namespaces) {
@@ -26,7 +26,7 @@ export function getNamespacesMethods(namespaces: SessionTypes.Namespaces) {
   Object.values(namespaces).forEach((namespace) => {
     methods.push(...namespace.methods);
   });
-  return [...new Set(methods)];
+  return [...unique(methods)];
 }
 
 export function getNamespacesEvents(namespaces: SessionTypes.Namespaces) {
@@ -34,7 +34,7 @@ export function getNamespacesEvents(namespaces: SessionTypes.Namespaces) {
   Object.values(namespaces).forEach((namespace) => {
     events.push(...namespace.events);
   });
-  return [...new Set(events)];
+  return [...unique(events)];
 }
 
 export function getNamespacesMethodsForChainId(
