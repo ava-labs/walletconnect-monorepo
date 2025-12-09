@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import { getAccountsFromNamespaces, getSdkError, isValidArray } from "@walletconnect/utils";
+import { getAccountsFromNamespaces, getSdkError, isValidArray, unique } from "@walletconnect/utils";
 import { KeyValueStorageOptions } from "@walletconnect/keyvaluestorage";
 import {
   IEthereumProvider as IProvider,

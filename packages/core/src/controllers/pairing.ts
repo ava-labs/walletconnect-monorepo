@@ -25,6 +25,7 @@ import {
   isExpired,
   parseExpirerTarget,
   TYPE_1,
+  unique,
 } from "@walletconnect/utils";
 import {
   formatJsonRpcRequest,

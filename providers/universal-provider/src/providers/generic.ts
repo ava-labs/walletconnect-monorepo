@@ -12,7 +12,7 @@ import {
   SubProviderOpts,
 } from "../types/index.js";
 import { getGlobal, getRpcUrl } from "../utils/index.js";
-import { parseChainId } from "@walletconnect/utils";
+import { parseChainId, unique } from "@walletconnect/utils";
 
 class GenericProvider implements IProvider {
   public name = GENERIC_SUBPROVIDER_NAME;

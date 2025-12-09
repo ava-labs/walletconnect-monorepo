@@ -7,7 +7,7 @@ import {
   getAccountsChains,
 } from "./namespaces.js";
 import { getSdkError, getInternalError } from "./errors.js";
-import { fromBase64, hasOverlap } from "./misc.js";
+import { fromBase64, hasOverlap, unique } from "./misc.js";
 import { getChainsFromNamespace } from "./caip.js";
 
 export type ErrorObject = { message: string; code: number } | null;

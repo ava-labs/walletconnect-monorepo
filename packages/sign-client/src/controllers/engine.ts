@@ -109,6 +109,7 @@ import {
   getNamespacesChains,
   getNamespacesMethods,
   getNamespacesEvents,
+  unique,
 } from "@walletconnect/utils";
 import EventEmmiter from "events";
 import {
@@ -2956,7 +2957,7 @@ export class Engine extends IEngine {
     if (scopedProperties && !isUndefined(scopedProperties)) {
       this.validateSessionProps(scopedProperties, "scopedProperties");
 
-      const approvedNamespaces = unique(Object.keys(namespaces));
+      const approvedNamespaces = new Set(Object.keys(namespaces));
       const scopedNamespaces = Object.keys(scopedProperties);
 
       // the approved scoped namespaces must be a subset of the approved namespaces
