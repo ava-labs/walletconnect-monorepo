@@ -12,7 +12,7 @@ import {
   SubProviderOpts,
 } from "../types/index.js";
 import { getGlobal, getRpcUrl } from "../utils/index.js";
-import { parseChainId } from "@walletconnect/utils";
+import { parseChainId, unique } from "@walletconnect/utils";
 
 class GenericProvider implements IProvider {
   public name = GENERIC_SUBPROVIDER_NAME;
@@ -33,16 +33,16 @@ class GenericProvider implements IProvider {
 
   public updateNamespace(namespace: SessionTypes.Namespace) {
     this.namespace.chains = [
-      ...new Set((this.namespace.chains || []).concat(namespace.chains || [])),
+      ...unique((this.namespace.chains || []).concat(namespace.chains || [])),
     ];
     this.namespace.accounts = [
-      ...new Set((this.namespace.accounts || []).concat(namespace.accounts || [])),
+      ...unique((this.namespace.accounts || []).concat(namespace.accounts || [])),
     ];
     this.namespace.methods = [
-      ...new Set((this.namespace.methods || []).concat(namespace.methods || [])),
+      ...unique((this.namespace.methods || []).concat(namespace.methods || [])),
     ];
     this.namespace.events = [
-      ...new Set((this.namespace.events || []).concat(namespace.events || [])),
+      ...unique((this.namespace.events || []).concat(namespace.events || [])),
     ];
     this.httpProviders = this.createHttpProviders();
   }
@@ -97,7 +97,7 @@ class GenericProvider implements IProvider {
     }
 
     return [
-      ...new Set(
+      ...unique(
         accounts
           // get the accounts from the active chain
           .filter((account) => account.split(":")[1] === this.chainId.toString())

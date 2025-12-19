@@ -7,7 +7,7 @@ import {
   getAccountsChains,
 } from "./namespaces.js";
 import { getSdkError, getInternalError } from "./errors.js";
-import { fromBase64, hasOverlap } from "./misc.js";
+import { fromBase64, hasOverlap, unique } from "./misc.js";
 import { getChainsFromNamespace } from "./caip.js";
 
 export type ErrorObject = { message: string; code: number } | null;
@@ -469,7 +469,7 @@ function parseNamespaces(namespaces: ProposalTypes.RequiredNamespaces) {
 
 function filterDuplicateNamespaces(namespaces: string[]) {
   return [
-    ...new Set(
+    ...unique(
       namespaces.map((namespace) =>
         namespace.includes(":") ? namespace.split(":")[0] : namespace,
       ),

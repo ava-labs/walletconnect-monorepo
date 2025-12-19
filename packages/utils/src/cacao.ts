@@ -1,5 +1,5 @@
 import { AuthTypes } from "@walletconnect/types";
-import { getCommonValuesInArrays } from "./misc.js";
+import { getCommonValuesInArrays, unique } from "./misc.js";
 import { verifySignature } from "./signatures.js";
 const didPrefix = "did:pkh:";
 const NAMESPACE_DISPLAY_NAMES = {
@@ -408,7 +408,7 @@ export function getChainsFromRecap(recap: string) {
       }
     });
   });
-  return [...new Set(chains.flat())];
+  return [...unique(chains.flat())];
 }
 
 export function buildRecapStatement(statement: string, recap: unknown) {

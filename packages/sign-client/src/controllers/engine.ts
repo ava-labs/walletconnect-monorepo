@@ -109,6 +109,7 @@ import {
   getNamespacesChains,
   getNamespacesMethods,
   getNamespacesEvents,
+  unique,
 } from "@walletconnect/utils";
 import EventEmmiter from "events";
 import {
@@ -1015,7 +1016,7 @@ export class Engine extends IEngine {
       eip155: {
         chains,
         // request `personal_sign` method by default to allow for fallback siwe
-        methods: [...new Set(["personal_sign", ...methods])],
+        methods: [...unique(["personal_sign", ...methods])],
         events: ["chainChanged", "accountsChanged"],
       },
     };
@@ -1128,8 +1129,8 @@ export class Engine extends IEngine {
           relay: { protocol: "irn" },
           pairingTopic,
           namespaces: buildNamespacesFromAuth(
-            [...new Set(approvedMethods)],
-            [...new Set(approvedAccounts)],
+            [...unique(approvedMethods)],
+            [...unique(approvedAccounts)],
           ),
           transportType,
         };
@@ -1337,8 +1338,8 @@ export class Engine extends IEngine {
         relay: { protocol: "irn" },
         pairingTopic: pendingRequest.pairingTopic,
         namespaces: buildNamespacesFromAuth(
-          [...new Set(approvedMethods)],
-          [...new Set(approvedAccounts)],
+          [...unique(approvedMethods)],
+          [...unique(approvedAccounts)],
         ),
         transportType,
       };
@@ -3184,7 +3185,7 @@ export class Engine extends IEngine {
     }
 
     // ----- reject multi namespaces ----- //
-    const uniqueNamespaces = [...new Set(chains.map((chain) => parseChainId(chain).namespace))];
+    const uniqueNamespaces = [...unique(chains.map((chain) => parseChainId(chain).namespace))];
     if (uniqueNamespaces.length > 1) {
       throw new Error(
         "Multi-namespace requests are not supported. Please request single namespace only.",

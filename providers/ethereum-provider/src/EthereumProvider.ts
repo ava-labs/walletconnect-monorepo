@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import { getAccountsFromNamespaces, getSdkError, isValidArray } from "@walletconnect/utils";
+import { getAccountsFromNamespaces, getSdkError, isValidArray, unique } from "@walletconnect/utils";
 import { KeyValueStorageOptions } from "@walletconnect/keyvaluestorage";
 import {
   IEthereumProvider as IProvider,
@@ -165,17 +165,17 @@ export function buildNamespaces(params: NamespacesParams): {
 
   const optional: Namespace = {
     chains: [
-      ...new Set(
+      ...unique(
         shouldIncludeRequiredChains ? required.chains.concat(optionalChains || []) : optionalChains,
       ),
     ],
     methods: [
-      ...new Set(
+      ...unique(
         required.methods.concat(optionalMethods?.length ? optionalMethods : OPTIONAL_METHODS),
       ),
     ],
     events: [
-      ...new Set(required.events.concat(optionalEvents?.length ? optionalEvents : OPTIONAL_EVENTS)),
+      ...unique(required.events.concat(optionalEvents?.length ? optionalEvents : OPTIONAL_EVENTS)),
     ],
     rpcMap,
   };
@@ -607,7 +607,7 @@ export class EthereumProvider implements IEthereumProvider {
         const { convertWCMToAppKitOptions } = await import("./wcmToAppKit.js");
         const options = convertWCMToAppKitOptions({
           ...this.rpc.qrModalOptions,
-          chains: [...new Set([...this.rpc.chains, ...this.rpc.optionalChains])],
+          chains: [...unique([...this.rpc.chains, ...this.rpc.optionalChains])],
           metadata: this.rpc.metadata,
           projectId: this.rpc.projectId,
         });

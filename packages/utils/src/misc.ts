@@ -417,7 +417,22 @@ export function engineEvent(event: EngineTypes.Event, id?: number | string | und
 }
 
 export function mergeArrays<T>(a: T[] = [], b: T[] = []): T[] {
-  return [...new Set([...a, ...b])];
+  return [...unique([...a, ...b])];
+}
+
+export function unique<T>(arr: T[] = []) {
+  const seen = Object.create(null);
+  const out: T[] = [];
+  for (let i = 0, len = arr.length; i < len; i++) {
+    const val = arr[i];
+    // key must be string — handles numbers, strings, booleans fine
+    const key = typeof val + val;
+    if (seen[key] === undefined) {
+      seen[key] = true;
+      out.push(val);
+    }
+  }
+  return out;
 }
 
 export async function handleDeeplinkRedirect({

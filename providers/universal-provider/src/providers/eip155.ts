@@ -25,6 +25,7 @@ import {
 } from "../utils/index.js";
 import EventEmitter from "events";
 import { BUNDLER_URL, PROVIDER_EVENTS } from "../constants/index.js";
+import { unique } from "@walletconnect/utils";
 
 class Eip155Provider implements IProvider {
   public name = "eip155";
@@ -139,7 +140,7 @@ class Eip155Provider implements IProvider {
       return [];
     }
     return [
-      ...new Set(
+      ...unique(
         accounts
           // get the accounts from the active chain
           .filter((account) => account.split(":")[1] === this.chainId.toString())
