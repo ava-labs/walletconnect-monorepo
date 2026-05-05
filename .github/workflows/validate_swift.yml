@@ -25,6 +25,6 @@ jobs:
         uses: ./.github/actions/run_tests_without_building
         with:
           type: 'x-platform-protocol-tests'
-          relay-endpoint: ${{ 'relay.walletconnect.com' }}
+          relay-endpoint: relay.walletconnect.com
           project-id: ${{ secrets.SWIFT_PROJECT_ID }}
           js-client-api-host: ${{ github.event.inputs.jsClientApiHost }}
