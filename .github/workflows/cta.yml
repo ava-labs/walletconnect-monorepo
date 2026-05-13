@@ -6,9 +6,9 @@ on:
     types: [opened, closed, synchronize]
 
 permissions:
-  contents: write # can be 'read' if signatures are in remote repository
+  actions: write
+  contents: read  # 'read' if using remote-organization-name + remote-repository-name
   pull-requests: write
-  statuses: write
 
 jobs:
   CTA:
